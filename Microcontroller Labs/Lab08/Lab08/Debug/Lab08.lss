@@ -1,0 +1,411 @@
+
+Lab08.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  000002b2  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         0000025e  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  000002b2  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000002e4  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000080  00000000  00000000  00000320  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000c9c  00000000  00000000  000003a0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000006f6  00000000  00000000  0000103c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000004a7  00000000  00000000  00001732  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  0000010c  00000000  00000000  00001bdc  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000427  00000000  00000000  00001ce8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000424  00000000  00000000  0000210f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000070  00000000  00000000  00002533  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   8:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  10:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  14:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  18:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  1c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  20:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  24:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  28:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  2c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  30:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  34:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  38:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  3c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  40:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  44:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  48:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  4c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  50:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  54:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  58:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  5c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  60:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  64:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d4 e0       	ldi	r29, 0x04	; 4
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+  74:	0e 94 16 01 	call	0x22c	; 0x22c <main>
+  78:	0c 94 2d 01 	jmp	0x25a	; 0x25a <_exit>
+
+0000007c <__bad_interrupt>:
+  7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000080 <PWMsetup>:
+	DDRB = (1 << 3);
+	DDRD = (1 << 3) | (1 << 5) | (1 << 6);
+}
+
+void PWMsetup(void){
+	TCCR0A = (1 << COM0A1) | (1 << COM0A0); //set -> clear at topLeft
+  80:	20 ec       	ldi	r18, 0xC0	; 192
+  82:	24 bd       	out	0x24, r18	; 36
+	TCCR0A |= (1 << WGM01) | (1 << WGM02); //Set WGM01, WGM00 for fast PWM with top
+  84:	84 b5       	in	r24, 0x24	; 36
+  86:	8a 60       	ori	r24, 0x0A	; 10
+  88:	84 bd       	out	0x24, r24	; 36
+	TCCR0B = (1 << WGM02); //Set WGM02
+  8a:	98 e0       	ldi	r25, 0x08	; 8
+  8c:	95 bd       	out	0x25, r25	; 37
+	TCCR0B |= (1 << CS02) | (1 << CS01) | (1 << CS00); //No prescaling
+  8e:	85 b5       	in	r24, 0x25	; 37
+  90:	87 60       	ori	r24, 0x07	; 7
+  92:	85 bd       	out	0x25, r24	; 37
+	TCCR2A = (1 << COM2A1) | (1 << COM2A0); //set -> clear at topRight
+  94:	e0 eb       	ldi	r30, 0xB0	; 176
+  96:	f0 e0       	ldi	r31, 0x00	; 0
+  98:	20 83       	st	Z, r18
+	TCCR2A |= (1 << WGM01) | (1 << WGM02); //Set WGM01, WGM00 for fast PWM with top
+  9a:	80 81       	ld	r24, Z
+  9c:	8a 60       	ori	r24, 0x0A	; 10
+  9e:	80 83       	st	Z, r24
+	TCCR2B = (1 << WGM22); //Set WGM02
+  a0:	e1 eb       	ldi	r30, 0xB1	; 177
+  a2:	f0 e0       	ldi	r31, 0x00	; 0
+  a4:	90 83       	st	Z, r25
+	TCCR2B |= (1 << CS22) | (1 << CS21) | (1 << CS20); //No prescaling
+  a6:	80 81       	ld	r24, Z
+  a8:	87 60       	ori	r24, 0x07	; 7
+  aa:	80 83       	st	Z, r24
+	OCR0A = 0; //Left Forward Direction = 0
+  ac:	17 bc       	out	0x27, r1	; 39
+	OCR0B = 0; //Left Backward Direction = 0
+  ae:	18 bc       	out	0x28, r1	; 40
+	OCR2A = 0; //Right Forward Direction = 0
+  b0:	10 92 b3 00 	sts	0x00B3, r1	; 0x8000b3 <__TEXT_REGION_LENGTH__+0x7fc0b3>
+	OCR2B = 0; //Right Forward Direction = 0
+  b4:	10 92 b4 00 	sts	0x00B4, r1	; 0x8000b4 <__TEXT_REGION_LENGTH__+0x7fc0b4>
+  b8:	08 95       	ret
+
+000000ba <leftSpeed>:
+}
+
+void leftSpeed(uint8_t forwardSpeed, uint8_t backwardSpeed){
+	OCR0A = forwardSpeed;
+  ba:	87 bd       	out	0x27, r24	; 39
+	OCR0B = backwardSpeed;
+  bc:	68 bd       	out	0x28, r22	; 40
+  be:	08 95       	ret
+
+000000c0 <rightSpeed>:
+}
+void rightSpeed(uint8_t forwardSpeed, uint8_t backwardSpeed){
+	OCR2A = forwardSpeed;
+  c0:	80 93 b3 00 	sts	0x00B3, r24	; 0x8000b3 <__TEXT_REGION_LENGTH__+0x7fc0b3>
+	OCR2B = backwardSpeed;
+  c4:	60 93 b4 00 	sts	0x00B4, r22	; 0x8000b4 <__TEXT_REGION_LENGTH__+0x7fc0b4>
+  c8:	08 95       	ret
+
+000000ca <rightFullSpeedTest>:
+}
+
+
+
+void rightFullSpeedTest(void){
+	rightSpeed(255, 0);
+  ca:	60 e0       	ldi	r22, 0x00	; 0
+  cc:	8f ef       	ldi	r24, 0xFF	; 255
+  ce:	0e 94 60 00 	call	0xc0	; 0xc0 <rightSpeed>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  d2:	2f e7       	ldi	r18, 0x7F	; 127
+  d4:	8a e1       	ldi	r24, 0x1A	; 26
+  d6:	96 e0       	ldi	r25, 0x06	; 6
+  d8:	21 50       	subi	r18, 0x01	; 1
+  da:	80 40       	sbci	r24, 0x00	; 0
+  dc:	90 40       	sbci	r25, 0x00	; 0
+  de:	e1 f7       	brne	.-8      	; 0xd8 <rightFullSpeedTest+0xe>
+  e0:	00 c0       	rjmp	.+0      	; 0xe2 <rightFullSpeedTest+0x18>
+  e2:	00 00       	nop
+	_delay_ms(2000);
+	rightSpeed(0,255);
+  e4:	6f ef       	ldi	r22, 0xFF	; 255
+  e6:	80 e0       	ldi	r24, 0x00	; 0
+  e8:	0e 94 60 00 	call	0xc0	; 0xc0 <rightSpeed>
+  ec:	2f e7       	ldi	r18, 0x7F	; 127
+  ee:	8a e1       	ldi	r24, 0x1A	; 26
+  f0:	96 e0       	ldi	r25, 0x06	; 6
+  f2:	21 50       	subi	r18, 0x01	; 1
+  f4:	80 40       	sbci	r24, 0x00	; 0
+  f6:	90 40       	sbci	r25, 0x00	; 0
+  f8:	e1 f7       	brne	.-8      	; 0xf2 <rightFullSpeedTest+0x28>
+  fa:	00 c0       	rjmp	.+0      	; 0xfc <rightFullSpeedTest+0x32>
+  fc:	00 00       	nop
+  fe:	08 95       	ret
+
+00000100 <testBreak>:
+	_delay_ms(2000);
+}
+
+void testBreak(void){
+	rightSpeed(0,0);
+ 100:	60 e0       	ldi	r22, 0x00	; 0
+ 102:	80 e0       	ldi	r24, 0x00	; 0
+ 104:	0e 94 60 00 	call	0xc0	; 0xc0 <rightSpeed>
+	leftSpeed(0,0);
+ 108:	60 e0       	ldi	r22, 0x00	; 0
+ 10a:	80 e0       	ldi	r24, 0x00	; 0
+ 10c:	0e 94 5d 00 	call	0xba	; 0xba <leftSpeed>
+ 110:	2f e7       	ldi	r18, 0x7F	; 127
+ 112:	8a e1       	ldi	r24, 0x1A	; 26
+ 114:	96 e0       	ldi	r25, 0x06	; 6
+ 116:	21 50       	subi	r18, 0x01	; 1
+ 118:	80 40       	sbci	r24, 0x00	; 0
+ 11a:	90 40       	sbci	r25, 0x00	; 0
+ 11c:	e1 f7       	brne	.-8      	; 0x116 <testBreak+0x16>
+ 11e:	00 c0       	rjmp	.+0      	; 0x120 <testBreak+0x20>
+ 120:	00 00       	nop
+ 122:	08 95       	ret
+
+00000124 <leftFullSpeedTest>:
+	_delay_ms(2000);
+}
+
+void leftFullSpeedTest(void){
+	leftSpeed(255, 0);
+ 124:	60 e0       	ldi	r22, 0x00	; 0
+ 126:	8f ef       	ldi	r24, 0xFF	; 255
+ 128:	0e 94 5d 00 	call	0xba	; 0xba <leftSpeed>
+ 12c:	2f e7       	ldi	r18, 0x7F	; 127
+ 12e:	8a e1       	ldi	r24, 0x1A	; 26
+ 130:	96 e0       	ldi	r25, 0x06	; 6
+ 132:	21 50       	subi	r18, 0x01	; 1
+ 134:	80 40       	sbci	r24, 0x00	; 0
+ 136:	90 40       	sbci	r25, 0x00	; 0
+ 138:	e1 f7       	brne	.-8      	; 0x132 <leftFullSpeedTest+0xe>
+ 13a:	00 c0       	rjmp	.+0      	; 0x13c <leftFullSpeedTest+0x18>
+ 13c:	00 00       	nop
+	_delay_ms(2000);
+	leftSpeed(0,255);
+ 13e:	6f ef       	ldi	r22, 0xFF	; 255
+ 140:	80 e0       	ldi	r24, 0x00	; 0
+ 142:	0e 94 5d 00 	call	0xba	; 0xba <leftSpeed>
+ 146:	2f e7       	ldi	r18, 0x7F	; 127
+ 148:	8a e1       	ldi	r24, 0x1A	; 26
+ 14a:	96 e0       	ldi	r25, 0x06	; 6
+ 14c:	21 50       	subi	r18, 0x01	; 1
+ 14e:	80 40       	sbci	r24, 0x00	; 0
+ 150:	90 40       	sbci	r25, 0x00	; 0
+ 152:	e1 f7       	brne	.-8      	; 0x14c <leftFullSpeedTest+0x28>
+ 154:	00 c0       	rjmp	.+0      	; 0x156 <leftFullSpeedTest+0x32>
+ 156:	00 00       	nop
+ 158:	08 95       	ret
+
+0000015a <forwardTest>:
+	_delay_ms(2000);
+}
+
+void forwardTest(uint8_t speed){
+ 15a:	cf 93       	push	r28
+ 15c:	c8 2f       	mov	r28, r24
+	leftSpeed(speed,0);
+ 15e:	60 e0       	ldi	r22, 0x00	; 0
+ 160:	0e 94 5d 00 	call	0xba	; 0xba <leftSpeed>
+	rightSpeed(speed,0);
+ 164:	60 e0       	ldi	r22, 0x00	; 0
+ 166:	8c 2f       	mov	r24, r28
+ 168:	0e 94 60 00 	call	0xc0	; 0xc0 <rightSpeed>
+ 16c:	2f e7       	ldi	r18, 0x7F	; 127
+ 16e:	8a e1       	ldi	r24, 0x1A	; 26
+ 170:	96 e0       	ldi	r25, 0x06	; 6
+ 172:	21 50       	subi	r18, 0x01	; 1
+ 174:	80 40       	sbci	r24, 0x00	; 0
+ 176:	90 40       	sbci	r25, 0x00	; 0
+ 178:	e1 f7       	brne	.-8      	; 0x172 <forwardTest+0x18>
+ 17a:	00 c0       	rjmp	.+0      	; 0x17c <forwardTest+0x22>
+ 17c:	00 00       	nop
+	_delay_ms(2000);
+
+}
+ 17e:	cf 91       	pop	r28
+ 180:	08 95       	ret
+
+00000182 <backwardTest>:
+
+void backwardTest(uint8_t speed){
+ 182:	cf 93       	push	r28
+ 184:	c8 2f       	mov	r28, r24
+	leftSpeed(0,speed);
+ 186:	68 2f       	mov	r22, r24
+ 188:	80 e0       	ldi	r24, 0x00	; 0
+ 18a:	0e 94 5d 00 	call	0xba	; 0xba <leftSpeed>
+	rightSpeed(0,speed);
+ 18e:	6c 2f       	mov	r22, r28
+ 190:	80 e0       	ldi	r24, 0x00	; 0
+ 192:	0e 94 60 00 	call	0xc0	; 0xc0 <rightSpeed>
+ 196:	2f e7       	ldi	r18, 0x7F	; 127
+ 198:	8a e1       	ldi	r24, 0x1A	; 26
+ 19a:	96 e0       	ldi	r25, 0x06	; 6
+ 19c:	21 50       	subi	r18, 0x01	; 1
+ 19e:	80 40       	sbci	r24, 0x00	; 0
+ 1a0:	90 40       	sbci	r25, 0x00	; 0
+ 1a2:	e1 f7       	brne	.-8      	; 0x19c <backwardTest+0x1a>
+ 1a4:	00 c0       	rjmp	.+0      	; 0x1a6 <backwardTest+0x24>
+ 1a6:	00 00       	nop
+	_delay_ms(2000);
+}
+ 1a8:	cf 91       	pop	r28
+ 1aa:	08 95       	ret
+
+000001ac <testCW>:
+
+void testCW(uint8_t speed){
+ 1ac:	cf 93       	push	r28
+ 1ae:	c8 2f       	mov	r28, r24
+	leftSpeed(0, speed);
+ 1b0:	68 2f       	mov	r22, r24
+ 1b2:	80 e0       	ldi	r24, 0x00	; 0
+ 1b4:	0e 94 5d 00 	call	0xba	; 0xba <leftSpeed>
+	rightSpeed(speed, 0);
+ 1b8:	60 e0       	ldi	r22, 0x00	; 0
+ 1ba:	8c 2f       	mov	r24, r28
+ 1bc:	0e 94 60 00 	call	0xc0	; 0xc0 <rightSpeed>
+ 1c0:	2f e7       	ldi	r18, 0x7F	; 127
+ 1c2:	8a e1       	ldi	r24, 0x1A	; 26
+ 1c4:	96 e0       	ldi	r25, 0x06	; 6
+ 1c6:	21 50       	subi	r18, 0x01	; 1
+ 1c8:	80 40       	sbci	r24, 0x00	; 0
+ 1ca:	90 40       	sbci	r25, 0x00	; 0
+ 1cc:	e1 f7       	brne	.-8      	; 0x1c6 <testCW+0x1a>
+ 1ce:	00 c0       	rjmp	.+0      	; 0x1d0 <testCW+0x24>
+ 1d0:	00 00       	nop
+	_delay_ms(2000);
+}
+ 1d2:	cf 91       	pop	r28
+ 1d4:	08 95       	ret
+
+000001d6 <testCCW>:
+
+void testCCW(uint8_t speed){
+ 1d6:	cf 93       	push	r28
+ 1d8:	c8 2f       	mov	r28, r24
+	leftSpeed(speed, 0);
+ 1da:	60 e0       	ldi	r22, 0x00	; 0
+ 1dc:	0e 94 5d 00 	call	0xba	; 0xba <leftSpeed>
+	rightSpeed(0, speed);
+ 1e0:	6c 2f       	mov	r22, r28
+ 1e2:	80 e0       	ldi	r24, 0x00	; 0
+ 1e4:	0e 94 60 00 	call	0xc0	; 0xc0 <rightSpeed>
+ 1e8:	2f e7       	ldi	r18, 0x7F	; 127
+ 1ea:	8a e1       	ldi	r24, 0x1A	; 26
+ 1ec:	96 e0       	ldi	r25, 0x06	; 6
+ 1ee:	21 50       	subi	r18, 0x01	; 1
+ 1f0:	80 40       	sbci	r24, 0x00	; 0
+ 1f2:	90 40       	sbci	r25, 0x00	; 0
+ 1f4:	e1 f7       	brne	.-8      	; 0x1ee <testCCW+0x18>
+ 1f6:	00 c0       	rjmp	.+0      	; 0x1f8 <testCCW+0x22>
+ 1f8:	00 00       	nop
+	_delay_ms(2000);
+}
+ 1fa:	cf 91       	pop	r28
+ 1fc:	08 95       	ret
+
+000001fe <testRoutine>:
+
+void testRoutine(uint8_t speed){
+ 1fe:	cf 93       	push	r28
+ 200:	c8 2f       	mov	r28, r24
+	forwardTest(speed);
+ 202:	0e 94 ad 00 	call	0x15a	; 0x15a <forwardTest>
+	testBreak();
+ 206:	0e 94 80 00 	call	0x100	; 0x100 <testBreak>
+	backwardTest(speed);
+ 20a:	8c 2f       	mov	r24, r28
+ 20c:	0e 94 c1 00 	call	0x182	; 0x182 <backwardTest>
+	testBreak();
+ 210:	0e 94 80 00 	call	0x100	; 0x100 <testBreak>
+	testCW(speed);
+ 214:	8c 2f       	mov	r24, r28
+ 216:	0e 94 d6 00 	call	0x1ac	; 0x1ac <testCW>
+	testBreak();
+ 21a:	0e 94 80 00 	call	0x100	; 0x100 <testBreak>
+	testCCW(speed);
+ 21e:	8c 2f       	mov	r24, r28
+ 220:	0e 94 eb 00 	call	0x1d6	; 0x1d6 <testCCW>
+	testBreak();
+ 224:	0e 94 80 00 	call	0x100	; 0x100 <testBreak>
+}
+ 228:	cf 91       	pop	r28
+ 22a:	08 95       	ret
+
+0000022c <main>:
+
+
+int main(void)
+{
+	PWMsetup();
+ 22c:	0e 94 40 00 	call	0x80	; 0x80 <PWMsetup>
+		
+    leftFullSpeedTest();
+ 230:	0e 94 92 00 	call	0x124	; 0x124 <leftFullSpeedTest>
+	testBreak();
+ 234:	0e 94 80 00 	call	0x100	; 0x100 <testBreak>
+	rightFullSpeedTest();
+ 238:	0e 94 65 00 	call	0xca	; 0xca <rightFullSpeedTest>
+	testBreak();
+ 23c:	0e 94 80 00 	call	0x100	; 0x100 <testBreak>
+	testRoutine(255);
+ 240:	8f ef       	ldi	r24, 0xFF	; 255
+ 242:	0e 94 ff 00 	call	0x1fe	; 0x1fe <testRoutine>
+	testBreak();
+ 246:	0e 94 80 00 	call	0x100	; 0x100 <testBreak>
+	testRoutine(64);
+ 24a:	80 e4       	ldi	r24, 0x40	; 64
+ 24c:	0e 94 ff 00 	call	0x1fe	; 0x1fe <testRoutine>
+	testBreak();
+ 250:	0e 94 80 00 	call	0x100	; 0x100 <testBreak>
+	
+}
+ 254:	80 e0       	ldi	r24, 0x00	; 0
+ 256:	90 e0       	ldi	r25, 0x00	; 0
+ 258:	08 95       	ret
+
+0000025a <_exit>:
+ 25a:	f8 94       	cli
+
+0000025c <__stop_program>:
+ 25c:	ff cf       	rjmp	.-2      	; 0x25c <__stop_program>
