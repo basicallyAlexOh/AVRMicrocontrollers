@@ -1,0 +1,45 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\Users\Alex\Documents\Atmel Studio\7.0\Lab05-2\Lab05-2\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\Alex\Documents\Atmel Studio\7.0\Lab05-2\Lab05-2\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m328Pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\Alex\Documents\Atmel Studio\7.0\Lab05-2\Lab05-2\Debug\Lab05-2.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Lab05-2.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Lab05-2.map</FILE>
+  <FILE>Lab05-2.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <reset><FILE>C:\Users\Alex\Documents\Atmel Studio\7.0\Lab05-2\Lab05-2\main.asm</FILE><LINE>102</LINE></reset>
+  <OC1match><FILE>C:\Users\Alex\Documents\Atmel Studio\7.0\Lab05-2\Lab05-2\main.asm</FILE><LINE>203</LINE></OC1match>
+  <init><FILE>C:\Users\Alex\Documents\Atmel Studio\7.0\Lab05-2\Lab05-2\main.asm</FILE><LINE>35</LINE></init>
+  <boundregisters><FILE>C:\Users\Alex\Documents\Atmel Studio\7.0\Lab05-2\Lab05-2\main.asm</FILE><LINE>61</LINE></boundregisters>
+  <shiftingregisterloop1><FILE>C:\Users\Alex\Documents\Atmel Studio\7.0\Lab05-2\Lab05-2\main.asm</FILE><LINE>69</LINE></shiftingregisterloop1>
+  <shiftingregisterloop1end><FILE>C:\Users\Alex\Documents\Atmel Studio\7.0\Lab05-2\Lab05-2\main.asm</FILE><LINE>76</LINE></shiftingregisterloop1end>
+  <endofbounding><FILE>C:\Users\Alex\Documents\Atmel Studio\7.0\Lab05-2\Lab05-2\main.asm</FILE><LINE>96</LINE></endofbounding>
+  <copybytes><FILE>C:\Users\Alex\Documents\Atmel Studio\7.0\Lab05-2\Lab05-2\main.asm</FILE><LINE>180</LINE></copybytes>
+  <loadhigh><FILE>C:\Users\Alex\Documents\Atmel Studio\7.0\Lab05-2\Lab05-2\main.asm</FILE><LINE>236</LINE></loadhigh>
+  <loadlow><FILE>C:\Users\Alex\Documents\Atmel Studio\7.0\Lab05-2\Lab05-2\main.asm</FILE><LINE>224</LINE></loadlow>
+  <main><FILE>C:\Users\Alex\Documents\Atmel Studio\7.0\Lab05-2\Lab05-2\main.asm</FILE><LINE>142</LINE></main>
+  <mainloop1><FILE>C:\Users\Alex\Documents\Atmel Studio\7.0\Lab05-2\Lab05-2\main.asm</FILE><LINE>145</LINE></mainloop1>
+  <freqdelay><FILE>C:\Users\Alex\Documents\Atmel Studio\7.0\Lab05-2\Lab05-2\main.asm</FILE><LINE>156</LINE></freqdelay>
+  <loop2init><FILE>C:\Users\Alex\Documents\Atmel Studio\7.0\Lab05-2\Lab05-2\main.asm</FILE><LINE>160</LINE></loop2init>
+  <loop2><FILE>C:\Users\Alex\Documents\Atmel Studio\7.0\Lab05-2\Lab05-2\main.asm</FILE><LINE>162</LINE></loop2>
+  <loop2inner><FILE>C:\Users\Alex\Documents\Atmel Studio\7.0\Lab05-2\Lab05-2\main.asm</FILE><LINE>165</LINE></loop2inner>
+  <loop2innerinner><FILE>C:\Users\Alex\Documents\Atmel Studio\7.0\Lab05-2\Lab05-2\main.asm</FILE><LINE>167</LINE></loop2innerinner>
+  <loop1><FILE>C:\Users\Alex\Documents\Atmel Studio\7.0\Lab05-2\Lab05-2\main.asm</FILE><LINE>189</LINE></loop1>
+  <return1><FILE>C:\Users\Alex\Documents\Atmel Studio\7.0\Lab05-2\Lab05-2\main.asm</FILE><LINE>198</LINE></return1>
+ </LABELS>
+</ASSEMBLER_INFO>
